@@ -2,7 +2,7 @@
 作者：陈晗阳
 邮箱：19281123@bjtu.edu.cn
 创建时间：2021/7/19
-修改时间：2021/7/20
+修改时间：2021/7/21
 描述：主程序
 ********************/
 
@@ -24,7 +24,7 @@ mutex mtx;
 
 void elevatorRun(People& people, Elevator elevator)
 {
-	cout << "电梯" << &elevator << "正在运行！" << endl;
+	cout << "电梯" << elevator.getId() << "正在运行！" << endl;
 	while (people.getPeopleNum() != 0 || !elevator.peopleIsNULL() || elevator.getState() == State::WAIT)
 	{
 		int floor = elevator.getFloor();
@@ -37,7 +37,7 @@ void elevatorRun(People& people, Elevator elevator)
 				if (des == floor) people.boarding(elevator);
 				else des > floor ? elevator.setState(State::UP) : elevator.setState(State::DOWN);
 			}
-			Sleep((DWORD)elevator.getTime());
+			Sleep((DWORD)(elevator.getTime() * 1000));
 		}
 		else if (elevator.getState() == State::UP)
 		{
@@ -53,7 +53,7 @@ void elevatorRun(People& people, Elevator elevator)
 				}
 				else people.boarding(elevator);
 			}
-			Sleep((DWORD)elevator.getTime());
+			Sleep((DWORD)(elevator.getTime() * 1000));
 		}
 		else if (elevator.getState() == State::DOWN)
 		{
@@ -67,7 +67,7 @@ void elevatorRun(People& people, Elevator elevator)
 				continue;
 			}
 			else people.boarding(elevator);
-			Sleep((DWORD)elevator.getTime());
+			Sleep((DWORD)(elevator.getTime() * 1000));
 		}
 	}
 }
@@ -75,7 +75,7 @@ void elevatorRun(People& people, Elevator elevator)
 int main()
 {
 	/*获得程序参数*/
-	int floorNum(10), elevatorNum(2), elevatorWight(1000), peopleNum(10);
+	int floorNum(10), elevatorNum(3), elevatorWight(1000), peopleNum(100);
 	double elevatorSpeed(1.0);
 	cout << "***************欢迎使用电梯模拟器***************" << endl;
 	//cout << "请输入建筑层数："; cin >> floorNum;

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "elevator.h"
 #include "human.h"
 #include "parameter.h"
@@ -8,6 +9,7 @@ bool Elevator::boarding(Human& human)
 	if (peopleWight + human.getWight() < totalWight)
 	{
 		peopleWight += human.getWight();
+		cout << "用户" << &human << "登上了电梯..." << endl;
 		people.push_back(human);
 		return true;
 	}
@@ -18,13 +20,15 @@ void Elevator::getOff(int floor)
 {
 	if (!people.empty())
 	{
-		for (int i(0); i < (int)people.size(); i++)
+		for (vector<Human>::iterator iter(people.begin()); iter != people.end();)
 		{
-			if (people[i].getDestination() == floor)
+			if (iter->getDestination() == floor)
 			{
-				peopleWight -= people[i].getWight();
-				people.erase(people.begin() + i);
+				peopleWight -= iter->getWight();
+				cout << "用户" << &iter << "下了电梯..." << endl;
+				iter = people.erase(iter);
 			}
+			else iter++;
 		}
 	}
 }

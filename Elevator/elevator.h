@@ -45,4 +45,3 @@ public:
 	bool boarding(Human& human);
 	void getOff(int floor);
 };
-

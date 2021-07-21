@@ -17,7 +17,7 @@ public:
 	{
 		peopleIn.resize(floorNum);
 		peopleWaitIn.resize(floorNum);
-		for (int i(0); i < floorNum; peopleWaitIn[i - 1] = false);
+		//for (int i(0); i < floorNum; peopleWaitIn[i] = false);
 	}
 	inline int getPeopleNum() { return peopleNum; };
 	void insertVector(Human& human);

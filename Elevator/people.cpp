@@ -8,8 +8,8 @@ using namespace std;
 
 void People::insertVector(Human& human)
 {
-	peopleIn[human.getOrigin()].push_back(human);
-	peopleWaitIn[human.getOrigin()] = true;
+	peopleIn[human.getOrigin() - 1].push_back(human);
+	peopleWaitIn[human.getOrigin() - 1] = true;
 }
 
 int People::nearRequest(int floor)

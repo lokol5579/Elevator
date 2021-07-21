@@ -24,6 +24,7 @@ mutex mtx;
 
 void elevatorRun(People& people, Elevator elevator)
 {
+	cout << "电梯" << &elevator << "正在运行！" << endl;
 	while (people.getPeopleNum() != 0 || elevator.getState() == State::WAIT)
 	{
 		int floor = elevator.getFloor();
@@ -77,7 +78,7 @@ int main()
 	cout << "请输入初始等待人数："; cin >> peopleNum;
 
 	/*初始化建筑、电梯及乘客*/
-	Building building(floorNum, elevatorWight, HEIGHT / elevatorSpeed);
+	Building building(floorNum, elevatorWight, elevatorSpeed);
 	Human* human = new Human[peopleNum];
 	People people(peopleNum, floorNum);
 	Elevator* elevator(building.getElevator());

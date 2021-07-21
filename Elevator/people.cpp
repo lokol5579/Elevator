@@ -15,22 +15,22 @@ void People::insertVector(Human& human)
 int People::nearRequest(int floor)
 {
 	int high(floor), low(floor);
-	for (; !peopleWaitIn[high] && high <= (int)peopleWaitIn.size(); high++);
-	for (; !peopleWaitIn[low] && low >= 1; low++);
+	for (; !peopleWaitIn[high - 1] && high <= (int)peopleWaitIn.size(); high++);
+	for (; !peopleWaitIn[low - 1] && low >= 1; low++);
 	return (high - floor) > (low - floor) ? low : high;
 }
 
 int People::upRequest(int floor)
 {
 	int high((int)peopleWaitIn.size());
-	for (; !peopleWaitIn[high] && high >= floor; high--);
+	for (; !peopleWaitIn[high - 1] && high >= floor; high--);
 	return high;
 }
 
 int People::downRequest(int floor)
 {
-	int low(0);
-	for (; !peopleWaitIn[low] && low <= floor; low++);
+	int low(1);
+	for (; !peopleWaitIn[low - 1] && low <= floor; low++);
 	return low;
 }
 
@@ -38,7 +38,7 @@ void People::boarding(Elevator& elevator)
 {
 	State state(elevator.getState());
 	int floor(elevator.getFloor()), totalWight(elevator.getTotalWight());
-	if (peopleWaitIn[floor - 1])
+	if (peopleWaitIn[floor])
 	{
 		for (vector<Human>::iterator iter(peopleIn[floor - 1].begin()); elevator.getPeopleWight() < totalWight;)
 		{

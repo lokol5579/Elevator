@@ -68,14 +68,14 @@ void elevatorRun(People& people, Elevator elevator)
 int main()
 {
 	/*获得程序参数*/
-	int floorNum(0), elevatorNum(0), elevatorWight(0), peopleNum(0);
-	double elevatorSpeed(0.0);
+	int floorNum(10), elevatorNum(3), elevatorWight(1000), peopleNum(10);
+	double elevatorSpeed(1.0);
 	cout << "***************欢迎使用电梯模拟器***************" << endl;
-	cout << "请输入建筑层数："; cin >> floorNum;
-	//cout << "请输入建筑电梯数量："; cin >> elevatorNum;
-	cout << "请输入电梯载重："; cin >> elevatorWight;
-	cout << "请输入电梯速度："; cin >> elevatorSpeed;
-	cout << "请输入初始等待人数："; cin >> peopleNum;
+	//cout << "请输入建筑层数："; cin >> floorNum;
+	////cout << "请输入建筑电梯数量："; cin >> elevatorNum;
+	//cout << "请输入电梯载重："; cin >> elevatorWight;
+	//cout << "请输入电梯速度："; cin >> elevatorSpeed;
+	//cout << "请输入初始等待人数："; cin >> peopleNum;
 
 	/*初始化建筑、电梯及乘客*/
 	Building building(floorNum, elevatorWight, elevatorSpeed);

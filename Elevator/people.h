@@ -29,12 +29,12 @@ public:
 		requestState.resize(floorNum);
 		//for (int i(0); i < floorNum; peopleWaitIn[i] = false);
 	}
-	inline void setRequestState(int floor, bool requestState) { this->requestState[floor] = requestState; }
+	inline void setRequestState(int floor, bool requestState) { this->requestState[floor - 1] = requestState; }
 	inline int getPeopleNum() { return peopleNum; }
-	inline bool getRequestState(int floor) { return requestState[floor]; }
+	inline bool getRequestState(int floor) { return requestState[floor - 1]; }
 	void insertVector(Human& human);
-	int nearRequest(int floor);
-	int upRequest(int floor);
-	int downRequest(int floor);
+	int nearRequest(Elevator& elevator);
+	int upRequest(Elevator& elevator);
+	int downRequest(Elevator& elevator);
 	void boarding(Elevator& elevator);
 };

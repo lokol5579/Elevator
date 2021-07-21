@@ -20,28 +20,92 @@ void People::insertVector(Human& human)
 	peopleWaitIn[human.getOrigin() - 1] = true;
 }
 
-int People::nearRequest(int floor)
+int People::nearRequest(Elevator& elevator)
 {
-	int high(floor), low(floor);
-	for (; high <= (int)peopleWaitIn.size() && !peopleWaitIn[high - 1]; high++);
-	for (; low >= 1 && !peopleWaitIn[low - 1]; low--);
-	if (high > peopleWaitIn.size() && low >= 1) return low;
-	else if (high <= peopleWaitIn.size() && low < 1) return high;
+	int high(elevator.getFloor()), low(elevator.getFloor());
+	for (; high <= (int)peopleWaitIn.size(); high++)
+	{
+		if (peopleWaitIn[high - 1] && !this->requestState[high - 1]) break;
+	}
+	for (; low >= 1; low--)
+	{
+		if (peopleWaitIn[low - 1] && !this->requestState[low - 1]) break;
+	}
+	if (high > peopleWaitIn.size() && low >= 1)
+	{
+		if (elevator.getDestination() > low)
+		{
+			this->requestState[elevator.getDestination() - 1] = false;
+			this->requestState[low - 1] = true;
+			elevator.setDestination(low);
+		}
+		return low;
+	}
+	else if (high <= peopleWaitIn.size() && low < 1)
+	{
+		if (elevator.getDestination() < high)
+		{
+			this->requestState[elevator.getDestination() - 1] = false;
+			this->requestState[high - 1] = true;
+			elevator.setDestination(high);
+		}
+		return high;
+	}
 	else if (high > peopleWaitIn.size() && low < 1) return -1;
-	else return (high - floor) > (low - floor) ? low : high;
+	else
+	{
+		if ((high - elevator.getFloor()) > (low - elevator.getFloor()))
+		{
+			if (elevator.getDestination() > low)
+			{
+				this->requestState[elevator.getDestination() - 1] = false;
+				this->requestState[low - 1] = true;
+				elevator.setDestination(low);
+			}
+			return low;
+		}
+		else
+		{
+			if (elevator.getDestination() < high)
+			{
+				this->requestState[elevator.getDestination() - 1] = false;
+				this->requestState[high - 1] = true;
+				elevator.setDestination(high);
+			}
+			return high;
+		}
+	}
 }
 
-int People::upRequest(int floor)
+int People::upRequest(Elevator& elevator)
 {
 	int high((int)peopleWaitIn.size());
-	for (; !peopleWaitIn[high - 1] && high > floor; high--);
+	for (; high > elevator.getFloor(); high--)
+	{
+		if (peopleWaitIn[high - 1] && !this->requestState[high - 1]) break;
+	}
+	if (elevator.getDestination() < high)
+	{
+		this->requestState[elevator.getDestination() - 1] = false;
+		this->requestState[high - 1] = true;
+		elevator.setDestination(high);
+	}
 	return high;
 }
 
-int People::downRequest(int floor)
+int People::downRequest(Elevator& elevator)
 {
 	int low(1);
-	for (; !peopleWaitIn[low - 1] && low < floor; low++);
+	for (; low < elevator.getFloor(); low++)
+	{
+		if (peopleWaitIn[low - 1] && !this->requestState[low - 1]) break;
+	}
+	if (elevator.getDestination() > low)
+	{
+		this->requestState[elevator.getDestination() - 1] = false;
+		this->requestState[low - 1] = true;
+		elevator.setDestination(low);
+	}
 	return low;
 }
 
@@ -54,27 +118,27 @@ void People::boarding(Elevator& elevator)
 		{
 			if (elevator.getState() == State::WAIT && iter->getState() == State::UP)
 			{
-				if (!elevator.boarding(*iter)) break;
+				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter);
 				elevator.setState(State::UP); peopleNum--;
 				continue;
 			}
 			else if (elevator.getState() == State::WAIT && iter->getState() == State::DOWN)
 			{
-				if (!elevator.boarding(*iter)) break;
+				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter);
 				elevator.setState(State::DOWN); peopleNum--;
 				continue;
 			}
 			else if (elevator.getState() == State::UP && iter->getState() == State::UP)
 			{
-				if (!elevator.boarding(*iter)) break;
+				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter); peopleNum--;
 				continue;
 			}
 			else if (elevator.getState() == State::DOWN && iter->getState() == State::DOWN)
 			{
-				if (!elevator.boarding(*iter)) break;
+				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter); peopleNum--;
 				continue;
 			}

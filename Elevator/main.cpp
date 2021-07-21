@@ -25,28 +25,27 @@ mutex mtx;
 void elevatorRun(People& people, Elevator elevator)
 {
 	cout << "电梯" << elevator.getId() << "正在运行！" << endl;
-	while (people.getPeopleNum() != 0 || !elevator.peopleIsNULL() || elevator.getState() == State::WAIT)
+	while (people.getPeopleNum() != 0 || !elevator.peopleIsNULL())
 	{
 		int floor = elevator.getFloor();
 		if (elevator.getState() == State::WAIT)
 		{
 			{
 				lock_guard<mutex> lock(mtx);
-				int des = people.nearRequest(floor);
-				if (des == -1) break;
-				if (des == floor) people.boarding(elevator);
-				else des > floor ? elevator.setState(State::UP) : elevator.setState(State::DOWN);
+				people.nearRequest(elevator);
+				if (elevator.getDestination() == floor) people.boarding(elevator);
+				else elevator.getDestination() > floor ? elevator.setState(State::UP) : elevator.setState(State::DOWN);
 			}
 			Sleep((DWORD)(elevator.getTime() * 1000));
 		}
 		else if (elevator.getState() == State::UP)
 		{
 			elevator.moveUp(); floor++;
-			elevator.getOff(floor);
+			elevator.getOff(floor, people);
 			{
 				lock_guard<mutex> lock(mtx);
-				int des = people.upRequest(floor);
-				if (des == floor && elevator.peopleIsNULL())
+				people.upRequest(elevator);
+				if (elevator.getDestination() == floor && elevator.peopleIsNULL())
 				{
 					elevator.setState(State::WAIT);
 					continue;
@@ -58,10 +57,10 @@ void elevatorRun(People& people, Elevator elevator)
 		else if (elevator.getState() == State::DOWN)
 		{
 			elevator.moveDown(); floor--;
-			elevator.getOff(floor);
+			elevator.getOff(floor, people);
 			lock_guard<mutex> lock(mtx);
-			int des = people.downRequest(floor);
-			if (des == floor && elevator.peopleIsNULL())
+			people.downRequest(elevator);
+			if (elevator.getDestination() == floor && elevator.peopleIsNULL())
 			{
 				elevator.setState(State::WAIT);
 				continue;
@@ -75,7 +74,7 @@ void elevatorRun(People& people, Elevator elevator)
 int main()
 {
 	/*获得程序参数*/
-	int floorNum(10), elevatorNum(3), elevatorWight(1000), peopleNum(100);
+	int floorNum(10), elevatorNum(2), elevatorWight(1000), peopleNum(10);
 	double elevatorSpeed(1.0);
 	cout << "***************欢迎使用电梯模拟器***************" << endl;
 	//cout << "请输入建筑层数："; cin >> floorNum;

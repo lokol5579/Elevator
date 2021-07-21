@@ -14,6 +14,7 @@
 using namespace std;
 
 class Human;
+class People;
 extern int elevatorId;
 
 class Elevator
@@ -37,6 +38,7 @@ public:
 	inline void setState(State state) { this->state = state; }
 	inline void setTotalWight(int wight) { this->totalWight = wight; }
 	inline void setSpeed(double speed) { this->speed = speed; }
+	inline void setDestination(int destination) { this->destination = destination; }
 	inline void moveUp() { cout << "电梯" << this->getId() << "正在从" << floor << "楼向" << floor + 1 << "楼移动" << endl;  floor++; }
 	inline void moveDown() { cout << "电梯" << this->getId() << "正在从" << floor << "楼向" << floor - 1 << "楼移动" << endl; floor--; }
 	inline bool peopleIsNULL() { return people.empty(); }
@@ -44,8 +46,9 @@ public:
 	inline int getPeopleWight() { return peopleWight; }
 	inline int getTotalWight() { return totalWight; }
 	inline int getFloor() { return floor; }
+	inline int getDestination() { return destination; }
 	inline double getTime() { return HEIGHT / speed; }
 	inline State getState() { return state; }
-	bool boarding(Human& human);
-	void getOff(int floor);
+	bool boarding(Human& human, People& waitingPeople);
+	void getOff(int floor, People& waitingPeople);
 };

@@ -6,11 +6,11 @@
 描述：电梯功能实现
 ********************/
 
-#include <iostream>
 #include "elevator.h"
 #include "human.h"
 #include "people.h"
 #include "parameter.h"
+#include "file.h"
 using namespace std;
 
 int elevatorId = 0;
@@ -20,7 +20,7 @@ bool Elevator::boarding(Human& human, People& waitingPeople)
 	if (peopleWight + human.getWight() < totalWight)
 	{
 		peopleWight += human.getWight();
-		cout << "用户" << human.getId() << "登上了电梯" << this->getId() << "..." << endl;
+		writeBoardingInfo(human, this->getId());
 		switch (human.getState())
 		{
 		case State::DOWN:
@@ -59,7 +59,7 @@ void Elevator::getOff(int floor, People& waitingPeople)
 			if (iter->getDestination() == floor)
 			{
 				peopleWight -= iter->getWight();
-				cout << "用户" << iter->getId() << "下了电梯" << this->getId() << "..." << endl;
+				writeOffInfo(*iter, this->getId());
 				iter = people.erase(iter);
 			}
 			else iter++;

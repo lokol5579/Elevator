@@ -18,6 +18,7 @@
 #include "people.h"
 #include "elevator.h"
 #include "building.h"
+#include "file.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ mutex mtx;
 
 void elevatorRun(People& people, Elevator elevator)
 {
-	cout << "电梯" << elevator.getId() << "正在运行！" << endl;
+	writeSimulateInfo(elevator.getId());
 	while (people.getPeopleNum() != 0 || !elevator.peopleIsNULL())
 	{
 		int floor = elevator.getFloor();
@@ -69,7 +70,7 @@ void elevatorRun(People& people, Elevator elevator)
 				continue;
 			}
 			else people.boarding(elevator);
-			Sleep((DWORD)(elevator.getTime() * 1000));
+			Sleep((DWORD)(elevator.getTime() * 800));
 		}
 	}
 }
@@ -97,6 +98,10 @@ int main()
 		people.insertVector(human[i]);
 	}
 
+	cout << "开始模拟！" << endl;
+
+	clock_t start = clock();
+
 	/*多线程电梯构建*/
 	elevatorThread = new thread[elevatorNum];
 	for (int i(0); i < elevatorNum; i++)
@@ -104,6 +109,9 @@ int main()
 	
 	for (thread* iter = elevatorThread; iter <= &elevatorThread[elevatorNum - 1]; iter++)
 		iter->join();
+
+	clock_t end = clock();
+	cout << "模拟耗时" << (end - start) / CLOCKS_PER_SEC << "s..." << endl;
 
 	delete[]human;
 	return 0;

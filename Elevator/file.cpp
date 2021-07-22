@@ -9,9 +9,9 @@
 #define TIME_LENGTH 64
 using namespace std;
 
-void writeSimulateInfo(int elevatorId)
+bool writeSimulateInfo(int elevatorId)
 {
-	mkdir(".\\log");
+	_mkdir(".\\log");
 	char fileName[NAME_LENGTH];
 	sprintf_s(fileName, ".\\log\\elevator%d.log", elevatorId);
 	ofstream outFile;
@@ -19,12 +19,12 @@ void writeSimulateInfo(int elevatorId)
 	time_t t = time(0);
 	char YMDTime[TIME_LENGTH];
 	strftime(YMDTime, TIME_LENGTH, "%Y/%m/%d %X", localtime(&t));
-	outFile << "\n" << YMDTime << " Start to simulate..." << endl;
+	outFile << YMDTime << " Start to simulate..." << endl;
+	return true;
 }
 
 void writeBoardingInfo(Human human, int elevatorId)
 {
-	mkdir(".\\log");
 	char fileName[NAME_LENGTH];
 	sprintf_s(fileName, ".\\log\\elevator%d.log", elevatorId);
 	ofstream outFile;
@@ -37,7 +37,6 @@ void writeBoardingInfo(Human human, int elevatorId)
 
 void writeOffInfo(Human human, int elevatorId)
 {
-	mkdir(".\\log");
 	char fileName[NAME_LENGTH];
 	sprintf_s(fileName, ".\\log\\elevator%d.log", elevatorId);
 	ofstream outFile;

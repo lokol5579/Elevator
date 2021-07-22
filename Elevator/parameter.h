@@ -9,4 +9,4 @@
 #pragma once
 #define HEIGHT 3
 
-enum State { DOWN = -1, WAIT, UP };
+enum class State { DOWN = -1, WAIT, UP };

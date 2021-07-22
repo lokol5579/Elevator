@@ -23,6 +23,7 @@ private:
 	/*电梯属性*/
 	int id;
 	int totalWight;	//电梯限重
+	int totalCapacity; //电梯运送总人数
 	double speed;	//电梯运行速度
 	/*电梯实时状态*/
 	int floor;	//电梯所处楼层
@@ -33,8 +34,8 @@ private:
 	vector<Human> people;
 
 public:
-	Elevator() :totalWight(0), speed(0), floor(1), state(State::WAIT), peopleWight(0), destination(1) { id = (++elevatorId); }
-	Elevator(int totalWight, double speed) :totalWight(totalWight), peopleWight(0), speed(speed), floor(1), state(State::WAIT), destination(1) { id = (++elevatorId); }
+	Elevator() :totalWight(0), speed(0), floor(1), state(State::WAIT), peopleWight(0), destination(1), totalCapacity(0) { id = (++elevatorId); }
+	Elevator(int totalWight, double speed) :totalWight(totalWight), peopleWight(0), speed(speed), floor(1), state(State::WAIT), destination(1), totalCapacity(0) { id = (++elevatorId); }
 	inline void setState(State state) { this->state = state; }
 	inline void setTotalWight(int wight) { this->totalWight = wight; }
 	inline void setSpeed(double speed) { this->speed = speed; }
@@ -45,6 +46,7 @@ public:
 	inline int getId() { return id; }
 	inline int getPeopleWight() { return peopleWight; }
 	inline int getTotalWight() { return totalWight; }
+	inline int getTotalCapacity() { return totalCapacity; }
 	inline int getFloor() { return floor; }
 	inline int getDestination() { return destination; }
 	inline int getPeopleNum() { return (int)people.size(); }

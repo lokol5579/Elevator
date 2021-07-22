@@ -1,10 +1,11 @@
 #include <iostream>
 #include <Windows.h>
+#include <iomanip>
 #include "elevator.h"
 #include "parameter.h"
 using namespace std;
 
-void refresh(Elevator* elevator, int elevatorNum)
+void refresh(Elevator* elevator, int elevatorNum, int floorNum)
 {
 	system("cls");
 	cout << "Start to simulate..." << endl;
@@ -20,5 +21,22 @@ void refresh(Elevator* elevator, int elevatorNum)
 		case State::DOWN: cout << "DOWN"; break;
 		}
 		cout << "  Floor: " << elevator[i].getFloor() << endl;
+	}
+	cout << "\n      ";
+	for (int i(0); i < elevatorNum; i++)
+	{
+		cout << "Elevator " << i + 1 << "    ";
+	}
+	cout << "\n\n";
+	for (int i(0); i < floorNum; i++)
+	{
+		cout << "F" << setw(3) << floorNum - i << "  ";
+		for (int j(0); j < elevatorNum; j++)
+		{
+			if (elevator[j].getFloor() == floorNum - i)
+				cout << "|   ==   |" << "    ";
+			else cout << "|--------|    ";
+		}
+		cout << endl;
 	}
 }

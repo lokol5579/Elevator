@@ -1,3 +1,3 @@
 class Elevator;
 
-void refresh(Elevator* elevator, int elevatorNum);
+void refresh(Elevator* elevator, int elevatorNum, int floorNum);

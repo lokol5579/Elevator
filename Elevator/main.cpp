@@ -26,14 +26,14 @@ using namespace std;
 thread* elevatorThread;
 mutex mtx;
 
-void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevatorNum)
+void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevatorNum, int floorNum)
 {
 	if (!writeSimulateInfo(elevator[elevatorId].getId())) return;
 	while (people.getPeopleNum() != 0 || !elevator[elevatorId].peopleIsNULL())
 	{
 		{
 			lock_guard<mutex> lock(mtx);
-			refresh(elevator, elevatorNum);
+			refresh(elevator, elevatorNum, floorNum);
 		}
 		int floor = elevator[elevatorId].getFloor();
 		if (elevator[elevatorId].getState() == State::WAIT)
@@ -80,14 +80,14 @@ void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevato
 	}
 	{
 		lock_guard<mutex> lock(mtx);
-		refresh(elevator, elevatorNum);
+		refresh(elevator, elevatorNum, floorNum);
 	}
 }
 
 int main()
 {
 	/*获得程序参数*/
-	int floorNum(5), elevatorNum(3), elevatorWight(1000), peopleNum(100);
+	int floorNum(20), elevatorNum(3), elevatorWight(1000), peopleNum(100);
 	double elevatorSpeed(1.0);
 	cout << "***************欢迎使用电梯模拟器***************" << endl;
 	//cout << "请输入建筑层数："; cin >> floorNum;
@@ -100,6 +100,7 @@ int main()
 	Building building(floorNum, elevatorWight, elevatorSpeed);
 	Human* human = new Human[peopleNum];
 	People people(peopleNum, floorNum);
+	Elevator* elevator = building.getElevator();
 	for (int i(0); i < peopleNum; i++)
 	{
 		human[i].init(floorNum);
@@ -113,13 +114,17 @@ int main()
 	/*多线程电梯构建*/
 	elevatorThread = new thread[elevatorNum];
 	for (int i(0); i < elevatorNum; i++)
-		elevatorThread[i] = thread(elevatorRun, ref(people), building.getElevator(), i, elevatorNum);
+		elevatorThread[i] = thread(elevatorRun, ref(people), elevator, i, elevatorNum, floorNum);
 	
 	for (thread* iter = elevatorThread; iter <= &elevatorThread[elevatorNum - 1]; iter++)
 		iter->join();
 
 	clock_t end = clock();
 	cout << "Time consuming: " << (end - start) / CLOCKS_PER_SEC << "s..." << endl;
+	for (int i(0); i < elevatorNum; i++)
+	{
+		cout << "Total capacity of Elevator " << i + 1 << ": " << elevator[i].getTotalCapacity() << endl;
+	}
 
 	delete[]human;
 	return 0;

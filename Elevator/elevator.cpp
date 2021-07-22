@@ -45,6 +45,7 @@ bool Elevator::boarding(Human& human, People& waitingPeople)
 		}
 		}
 		people.push_back(human);
+		this->totalCapacity++;
 		return true;
 	}
 	else return false;

@@ -114,31 +114,27 @@ void People::boarding(Elevator& elevator)
 	int floor(elevator.getFloor()), totalWight(elevator.getTotalWight());
 	if (peopleWaitIn[floor - 1])
 	{
-		for (vector<Human>::iterator iter(peopleIn[floor - 1].begin()); !peopleIn[floor - 1].empty();)
+		for (vector<Human>::iterator iter(peopleIn[floor - 1].begin()); iter != peopleIn[floor - 1].end();)
 		{
-			if (elevator.getState() == State::WAIT && iter->getState() == State::UP)
+			if (elevator.getState() == State::WAIT && iter->getState() == State::UP && elevator.boarding(*iter, *this))
 			{
-				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter);
 				elevator.setState(State::UP); peopleNum--;
 				continue;
 			}
-			else if (elevator.getState() == State::WAIT && iter->getState() == State::DOWN)
+			else if (elevator.getState() == State::WAIT && iter->getState() == State::DOWN && elevator.boarding(*iter, *this))
 			{
-				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter);
 				elevator.setState(State::DOWN); peopleNum--;
 				continue;
 			}
-			else if (elevator.getState() == State::UP && iter->getState() == State::UP)
+			else if (elevator.getState() == State::UP && iter->getState() == State::UP && elevator.boarding(*iter, *this))
 			{
-				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter); peopleNum--;
 				continue;
 			}
-			else if (elevator.getState() == State::DOWN && iter->getState() == State::DOWN)
+			else if (elevator.getState() == State::DOWN && iter->getState() == State::DOWN&& elevator.boarding(*iter, *this))
 			{
-				if (!elevator.boarding(*iter, *this)) break;
 				iter = peopleIn[floor - 1].erase(iter); peopleNum--;
 				continue;
 			}

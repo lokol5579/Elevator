@@ -10,6 +10,8 @@
 #include <thread>
 #include <vector>
 #include <mutex>
+#include <ctime>
+#include <cstdlib>
 #include <Windows.h>
 #include "parameter.h"
 #include "human.h"
@@ -33,7 +35,8 @@ void elevatorRun(People& people, Elevator elevator)
 			{
 				lock_guard<mutex> lock(mtx);
 				people.nearRequest(elevator);
-				if (elevator.getDestination() == floor) people.boarding(elevator);
+				if (elevator.getDestination() == floor)
+					people.boarding(elevator);
 				else elevator.getDestination() > floor ? elevator.setState(State::UP) : elevator.setState(State::DOWN);
 			}
 			Sleep((DWORD)(elevator.getTime() * 1000));
@@ -74,7 +77,7 @@ void elevatorRun(People& people, Elevator elevator)
 int main()
 {
 	/*获得程序参数*/
-	int floorNum(10), elevatorNum(2), elevatorWight(1000), peopleNum(10);
+	int floorNum(5), elevatorNum(3), elevatorWight(1000), peopleNum(100);
 	double elevatorSpeed(1.0);
 	cout << "***************欢迎使用电梯模拟器***************" << endl;
 	//cout << "请输入建筑层数："; cin >> floorNum;

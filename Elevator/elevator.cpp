@@ -27,9 +27,9 @@ bool Elevator::boarding(Human& human, People& waitingPeople)
 		{
 			if (destination > human.getDestination())
 			{
-				waitingPeople.setRequestState(human.getDestination() - 1, false);
+				waitingPeople.setRequestState(human.getDestination(), false);
 				destination = human.getDestination();
-				waitingPeople.setRequestState(destination - 1, true);
+				waitingPeople.setRequestState(destination, true);
 			}
 			break;
 		}
@@ -37,9 +37,9 @@ bool Elevator::boarding(Human& human, People& waitingPeople)
 		{
 			if (destination < human.getDestination())
 			{
-				waitingPeople.setRequestState(human.getDestination() - 1, false);
+				waitingPeople.setRequestState(human.getDestination(), false);
 				destination = human.getDestination();
-				waitingPeople.setRequestState(destination - 1, true);
+				waitingPeople.setRequestState(destination, true);
 			}
 			break;
 		}

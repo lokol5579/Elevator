@@ -7,15 +7,20 @@
 ********************/
 
 #include <iostream>
-#include <ctime>
+#include <cstdlib>
 #include "parameter.h"
 #include "human.h"
 
 int humanId = 0;
+bool setSeed = false;
 
 void Human::init(int floorNum)
 {
-	srand((unsigned)time(NULL));
+	if (!setSeed)
+	{
+		srand((unsigned)time(NULL));
+		setSeed = true;
+	}
 	wight = (rand() % 101) + 80; //ÃÂ÷ÿ∑∂Œß80-180kg
 	origin = (rand() % floorNum) + 1;
 	while ((destination = (rand() % floorNum + 1)) == origin);

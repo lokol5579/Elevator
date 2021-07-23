@@ -1,5 +1,6 @@
 class Elevator;
 
+void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, double& elevatorSpeed, int& peopleNum);
 void fullScreen();
-//void displayScreen(Elevator elevator);
 void refresh(Elevator* elevator, int elevatorNum, int floorNum);
+void setTextWhite();

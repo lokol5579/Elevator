@@ -45,7 +45,7 @@ void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevato
 					people.boarding(elevator[elevatorId - 1]);
 				else elevator[elevatorId - 1].getDestination() > floor ? elevator[elevatorId - 1].setState(State::UP) : elevator[elevatorId - 1].setState(State::DOWN);
 			}
-			Sleep((DWORD)(elevator[elevatorId].getTime() * 1000));
+			//Sleep((DWORD)(elevator[elevatorId].getTime() * 1000));
 		}
 		else if (elevator[elevatorId - 1].getState() == State::UP)
 		{
@@ -61,7 +61,7 @@ void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevato
 				}
 				else people.boarding(elevator[elevatorId - 1]);
 			}
-			Sleep((DWORD)(elevator[elevatorId].getTime() * 1000));
+			//Sleep((DWORD)(elevator[elevatorId].getTime() * 1000));
 		}
 		else if (elevator[elevatorId - 1].getState() == State::DOWN)
 		{
@@ -75,7 +75,7 @@ void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevato
 				continue;
 			}
 			else people.boarding(elevator[elevatorId - 1]);
-			Sleep((DWORD)(elevator[elevatorId].getTime() * 800));
+			//Sleep((DWORD)(elevator[elevatorId].getTime() * 800));
 		}
 	}
 	{
@@ -88,14 +88,9 @@ int main()
 {
 	fullScreen();
 	/*获得程序参数*/
-	int floorNum(20), elevatorNum(10), elevatorWight(1000), peopleNum(1000);
+	int floorNum(10), elevatorNum(3), elevatorWight(1000), peopleNum(1000);
 	double elevatorSpeed(1.0);
-	cout << "***************欢迎使用电梯模拟器***************" << endl;
-	cout << "请输入建筑层数："; cin >> floorNum;
-	//cout << "请输入建筑电梯数量："; cin >> elevatorNum;
-	cout << "请输入电梯载重："; cin >> elevatorWight;
-	cout << "请输入电梯速度："; cin >> elevatorSpeed;
-	cout << "请输入初始等待人数："; cin >> peopleNum;
+	userInterface(floorNum, elevatorNum, elevatorWight, elevatorSpeed, peopleNum);
 
 	/*初始化建筑、电梯及乘客*/
 	Building building(floorNum, elevatorWight, elevatorSpeed);
@@ -107,7 +102,7 @@ int main()
 		human[i].init(floorNum);
 		people.insertVector(human[i]);
 	}
-
+	setTextWhite();
 	cout << "Start to simulate..." << endl;
 
 	clock_t start = clock();
@@ -121,6 +116,7 @@ int main()
 		iter->join();
 
 	clock_t end = clock();
+	setTextWhite();
 	cout << "Time consuming: " << (end - start) / CLOCKS_PER_SEC << "s..." << endl;
 	for (int i(0); i < elevatorNum; i++)
 	{

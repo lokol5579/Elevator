@@ -28,53 +28,53 @@ mutex mtx;
 
 void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevatorNum, int floorNum)
 {
-	if (!writeSimulateInfo(elevator[elevatorId].getId())) return;
-	while (people.getPeopleNum() != 0 || !elevator[elevatorId].peopleIsNULL())
+	if (!writeSimulateInfo(elevator[elevatorId - 1].getId())) return;
+	while (people.getPeopleNum() != 0 || !elevator[elevatorId - 1].peopleIsNULL())
 	{
 		{
 			lock_guard<mutex> lock(mtx);
 			refresh(elevator, elevatorNum, floorNum);
 		}
-		int floor = elevator[elevatorId].getFloor();
-		if (elevator[elevatorId].getState() == State::WAIT)
+		int floor = elevator[elevatorId - 1].getFloor();
+		if (elevator[elevatorId - 1].getState() == State::WAIT)
 		{
 			{
 				lock_guard<mutex> lock(mtx);
-				people.nearRequest(elevator[elevatorId]);
-				if (elevator[elevatorId].getDestination() == floor)
-					people.boarding(elevator[elevatorId]);
-				else elevator[elevatorId].getDestination() > floor ? elevator[elevatorId].setState(State::UP) : elevator[elevatorId].setState(State::DOWN);
+				people.nearRequest(elevator[elevatorId - 1]);
+				if (elevator[elevatorId - 1].getDestination() == floor)
+					people.boarding(elevator[elevatorId - 1]);
+				else elevator[elevatorId - 1].getDestination() > floor ? elevator[elevatorId - 1].setState(State::UP) : elevator[elevatorId - 1].setState(State::DOWN);
 			}
 			Sleep((DWORD)(elevator[elevatorId].getTime() * 1000));
 		}
-		else if (elevator[elevatorId].getState() == State::UP)
+		else if (elevator[elevatorId - 1].getState() == State::UP)
 		{
-			elevator[elevatorId].moveUp(); floor++;
-			elevator[elevatorId].getOff(floor, people);
+			elevator[elevatorId - 1].moveUp(); floor++;
+			elevator[elevatorId - 1].getOff(floor, people);
 			{
 				lock_guard<mutex> lock(mtx);
-				people.upRequest(elevator[elevatorId]);
-				if (elevator[elevatorId].getDestination() == floor && elevator[elevatorId].peopleIsNULL())
+				people.upRequest(elevator[elevatorId - 1]);
+				if (elevator[elevatorId - 1].getDestination() == floor && elevator[elevatorId - 1].peopleIsNULL())
 				{
-					elevator[elevatorId].setState(State::WAIT);
+					elevator[elevatorId - 1].setState(State::WAIT);
 					continue;
 				}
-				else people.boarding(elevator[elevatorId]);
+				else people.boarding(elevator[elevatorId - 1]);
 			}
 			Sleep((DWORD)(elevator[elevatorId].getTime() * 1000));
 		}
-		else if (elevator[elevatorId].getState() == State::DOWN)
+		else if (elevator[elevatorId - 1].getState() == State::DOWN)
 		{
-			elevator[elevatorId].moveDown(); floor--;
-			elevator[elevatorId].getOff(floor, people);
+			elevator[elevatorId - 1].moveDown(); floor--;
+			elevator[elevatorId - 1].getOff(floor, people);
 			lock_guard<mutex> lock(mtx);
-			people.downRequest(elevator[elevatorId]);
-			if (elevator[elevatorId].getDestination() == floor && elevator[elevatorId].peopleIsNULL())
+			people.downRequest(elevator[elevatorId - 1]);
+			if (elevator[elevatorId - 1].getDestination() == floor && elevator[elevatorId - 1].peopleIsNULL())
 			{
-				elevator[elevatorId].setState(State::WAIT);
+				elevator[elevatorId - 1].setState(State::WAIT);
 				continue;
 			}
-			else people.boarding(elevator[elevatorId]);
+			else people.boarding(elevator[elevatorId - 1]);
 			Sleep((DWORD)(elevator[elevatorId].getTime() * 800));
 		}
 	}
@@ -86,15 +86,16 @@ void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevato
 
 int main()
 {
+	fullScreen();
 	/*获得程序参数*/
-	int floorNum(20), elevatorNum(3), elevatorWight(1000), peopleNum(100);
+	int floorNum(20), elevatorNum(10), elevatorWight(1000), peopleNum(1000);
 	double elevatorSpeed(1.0);
 	cout << "***************欢迎使用电梯模拟器***************" << endl;
-	//cout << "请输入建筑层数："; cin >> floorNum;
-	////cout << "请输入建筑电梯数量："; cin >> elevatorNum;
-	//cout << "请输入电梯载重："; cin >> elevatorWight;
-	//cout << "请输入电梯速度："; cin >> elevatorSpeed;
-	//cout << "请输入初始等待人数："; cin >> peopleNum;
+	cout << "请输入建筑层数："; cin >> floorNum;
+	//cout << "请输入建筑电梯数量："; cin >> elevatorNum;
+	cout << "请输入电梯载重："; cin >> elevatorWight;
+	cout << "请输入电梯速度："; cin >> elevatorSpeed;
+	cout << "请输入初始等待人数："; cin >> peopleNum;
 
 	/*初始化建筑、电梯及乘客*/
 	Building building(floorNum, elevatorWight, elevatorSpeed);
@@ -114,7 +115,7 @@ int main()
 	/*多线程电梯构建*/
 	elevatorThread = new thread[elevatorNum];
 	for (int i(0); i < elevatorNum; i++)
-		elevatorThread[i] = thread(elevatorRun, ref(people), elevator, i, elevatorNum, floorNum);
+		elevatorThread[i] = thread(elevatorRun, ref(people), elevator, i + 1, elevatorNum, floorNum);
 	
 	for (thread* iter = elevatorThread; iter <= &elevatorThread[elevatorNum - 1]; iter++)
 		iter->join();

@@ -17,7 +17,7 @@ class Building
 {
 private:
 	int floorNum;	//Â¥²ã
-	Elevator elevator[3]; //3²¿µçÌÝ
+	Elevator elevator[10];
 
 public:
 	Building(int floorNum, int elevatorTotalWight, double elevatorSpeed);

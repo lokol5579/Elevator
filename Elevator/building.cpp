@@ -13,7 +13,7 @@ using namespace std;
 
 Building::Building(int floorNum, int elevatorTotalWight, double elevatorSpeed) :floorNum(floorNum)
 {
-	for (int i(0); i < 3; i++)
+	for (int i(0); i < 10; i++)
 	{
 		elevator[i].setTotalWight(elevatorTotalWight);
 		elevator[i].setSpeed(elevatorSpeed);

@@ -2,7 +2,7 @@
 作者：陈晗阳
 邮箱：19281123@bjtu.edu.cn
 创建时间：2021/7/22
-修改时间：2021/7/22
+修改时间：2021/7/24
 描述：日志相关函数实现
 ********************/
 
@@ -39,7 +39,7 @@ void writeBoardingInfo(Human human, int elevatorId)
 	outFile.open(fileName, ios::app);
 	time_t t = time(0);
 	char YMDTime[TIME_LENGTH];
-	strftime(YMDTime, TIME_LENGTH, "%Y/%m/%d %X", localtime(&t));
+	strftime(YMDTime, TIME_LENGTH, "%Y/%m/%d %X", localtime(&t));	//获得登梯时间
 	outFile << YMDTime << " " << "user" << human.getId() << " boarding | F" << human.getOrigin() << "->F" << human.getDestination() << endl;
 }
 
@@ -51,7 +51,7 @@ void writeOffInfo(Human human, int elevatorId)
 	outFile.open(fileName, ios::app);
 	time_t t = time(0);
 	char YMDTime[TIME_LENGTH];
-	strftime(YMDTime, TIME_LENGTH, "%Y/%m/%d %X", localtime(&t));
+	strftime(YMDTime, TIME_LENGTH, "%Y/%m/%d %X", localtime(&t));	//获得下梯时间
 	outFile << YMDTime << " " << "user" << human.getId() << " boarding | F" << human.getOrigin() << "->F" << human.getDestination() << endl;
 }
 

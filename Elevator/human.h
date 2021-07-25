@@ -22,11 +22,11 @@ private:
 	State state;	//去往状态
 
 public:
-	Human() :wight(0), origin(0), destination(0), state(State::WAIT) { id = (++humanId); }
-	void init(int floorNum);
-	inline int getId() { return id; }
-	inline int getWight() { return wight; }
-	inline int getOrigin() { return origin; }
-	inline int getDestination() { return destination; }
-	inline State getState() { return state; }
+	Human() :wight(0), origin(0), destination(0), state(State::WAIT) { id = (++humanId); }	//初始化人，并获得ID
+	void init(int floorNum);	//初始化人
+	inline int getId() { return id; }	//获得ID
+	inline int getWight() { return wight; }	//获得体重
+	inline int getOrigin() { return origin; }	//获得所在楼层
+	inline int getDestination() { return destination; }	//获得目标楼层
+	inline State getState() { return state; }	//获得所去方向
 };

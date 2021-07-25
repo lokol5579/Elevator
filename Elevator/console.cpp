@@ -18,7 +18,8 @@ bool print(false);
 
 void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, int& peopleNum, double& elevatorSpeed)
 {
-	HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);    //获得标准输出设备句柄
+	/*创建Console用户界面*/
+	HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(handle_out, BACKGROUND_INTENSITY);
 	cout << "\n\n";
 	for (int i(0); i < 9; i++)
@@ -37,6 +38,8 @@ void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, int& peo
 	cout << "\t        Speed of Elevators:       m/s               " << endl;
 	cout << "\t  Number of Waiting People:                         " << endl;
 	cout << "\t                                                    " << endl;
+
+	/*定位指针并获得用户输入*/
 	SetConsoleTextAttribute(handle_out, 31);
 	{
 		COORD pos = { 36, 6 };
@@ -93,11 +96,14 @@ void refresh(Elevator* elevator, int elevatorNum, int floorNum)
 
 	for (int i(0); i < elevatorNum; i++)
 	{
+		/*第一次输出到Console时，需要输出所有数据及数据名*/
 		if (!print)
 		{
 			cout << "Elevator " << i + 1 << " :" << endl;
 			cout << "\t" << "Wight:    Kg  People:       State:       Floor: ";
 		}
+
+		/*打印数据*/
 		{
 			COORD pos = { 15, (i + 1) * 2 };
 			SetConsoleCursorPosition(handle_out, pos);
@@ -124,6 +130,8 @@ void refresh(Elevator* elevator, int elevatorNum, int floorNum)
 			cout << setw(3) << elevator[i].getFloor() << endl;
 		}
 	}
+
+	/*第一次输出到Console，需构建所有图形*/
 	if (!print)
 	{
 		cout << "\n      ";
@@ -150,6 +158,8 @@ void refresh(Elevator* elevator, int elevatorNum, int floorNum)
 			cout << endl;
 		}
 	}
+
+	/*输出电梯位置*/
 	for (int i(floorNum); i > 0; i--)
 	{
 		for (int j(0); j < elevatorNum; j++)

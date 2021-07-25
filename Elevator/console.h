@@ -8,7 +8,7 @@
 
 class Elevator;
 
-void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, int& peopleNum, double& elevatorSpeed);
-void fullScreen();
-void refresh(Elevator* elevator, int elevatorNum, int floorNum);
-void setTextWhite();
+void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, int& peopleNum, double& elevatorSpeed);	//Console用户界面
+void fullScreen();	//Console全屏
+void refresh(Elevator* elevator, int elevatorNum, int floorNum);	//刷新界面
+void setTextWhite();	//设置字体为白色

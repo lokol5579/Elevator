@@ -17,24 +17,23 @@ class Elevator;
 class People
 {
 private:
-	int peopleNum;
-	vector<vector<Human>> peopleIn;
-	vector<bool> peopleWaitIn;
-	vector<bool> requestState;
+	int peopleNum;	//等待人群数量
+	vector<vector<Human>> peopleIn;	//每层楼的等待人群
+	vector<bool> peopleWaitIn;	//每层楼是否有等待人群
+	vector<bool> requestState;	//响应状态
 public:
-	People(int peopleNum, int floorNum) :peopleNum(peopleNum)
+	People(int peopleNum, int floorNum) :peopleNum(peopleNum)	//初始化人群
 	{
 		peopleIn.resize(floorNum);
 		peopleWaitIn.resize(floorNum);
 		requestState.resize(floorNum);
-		//for (int i(0); i < floorNum; peopleWaitIn[i] = false);
 	}
-	inline void setRequestState(int floor, bool requestState) { this->requestState[floor - 1] = requestState; }
-	inline int getPeopleNum() { return peopleNum; }
-	inline bool getRequestState(int floor) { return requestState[floor - 1]; }
-	void insertVector(Human& human);
-	int nearRequest(Elevator& elevator);
-	int upRequest(Elevator& elevator);
-	int downRequest(Elevator& elevator);
-	void boarding(Elevator& elevator);
+	inline void setRequestState(int floor, bool requestState) { this->requestState[floor - 1] = requestState; }	//设置响应状态
+	inline int getPeopleNum() { return peopleNum; }	//获得等待人数
+	inline bool getRequestState(int floor) { return requestState[floor - 1]; }	//获得响应状态
+	void insertVector(Human& human);	//将生成的人加入相应人群
+	int nearRequest(Elevator& elevator);	//获得离电梯最近的请求
+	int upRequest(Elevator& elevator);	//获得电梯所在楼层以上最远的请求
+	int downRequest(Elevator& elevator);	//获得电梯所在楼层以下最远的请求
+	void boarding(Elevator& elevator);	//登梯
 };

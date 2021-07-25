@@ -17,10 +17,10 @@ class Building
 {
 private:
 	int floorNum;	//楼层
-	Elevator elevator[10];
+	Elevator elevator[10];	//电梯
 
 public:
-	Building(int floorNum, int elevatorTotalWight, double elevatorSpeed);
-	inline int getFloorNum() { return floorNum; }
-	inline Elevator* getElevator() { return elevator; }
+	Building(int floorNum, int elevatorTotalWight, double elevatorSpeed);	//初始化并设置参数
+	inline int getFloorNum() { return floorNum; }	//获得楼层
+	inline Elevator* getElevator() { return elevator; }	//获得电梯地址
 };

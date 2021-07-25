@@ -1,1 +1,34 @@
+﻿<Window x:Class="ElevatorUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElevatorUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="429" Width="800" WindowStyle="None" AllowsTransparency="True">
+    <Grid Background="#FF2B2B2B" Height="429" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid HorizontalAlignment="Center" Margin="0,339,0,0" Width="800" Background="#FF202020" Height="96" VerticalAlignment="Top"/>
+        <Button x:Name="OK_Button" Content="OK" HorizontalAlignment="Left" Margin="180,371,0,0" VerticalAlignment="Top" Background="#FF2D2D2D" Foreground="White" FontFamily="Segoe UI" FontWeight="Bold" Width="200" Height="30" Click="OK_Button_Click" FontSize="16" BorderBrush="#FF2D2D2D"/>
+        <Button x:Name="Cancel_Button" Content="Cancel" Margin="420,371,180,0" VerticalAlignment="Top" Background="#FF4CC2FF" Foreground="#FF203A4D" FontFamily="Segoe UI" FontWeight="Bold" Height="30" RenderTransformOrigin="1.989,1.248" Click="Cancel_Button_Click" FontSize="16" Width="200" BorderBrush="#FF4CC2FF"/>
+        <TextBlock HorizontalAlignment="Left" Margin="357,0,0,365" Text="Building" TextWrapping="Wrap" VerticalAlignment="Bottom" Foreground="White" FontFamily="Segoe UI" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Floors1" HorizontalAlignment="Left" Margin="234,116,0,0" Text="1-1000" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF3C3C3C" Foreground="White" TextAlignment="Center" BorderThickness="0,0,0,3" Cursor="Arrow" FontFamily="Segoe UI" Height="20" SelectionBrush="#FF4CC2FF" BorderBrush="#FF9E9FA2"/>
+        <TextBlock x:Name="Floors" HorizontalAlignment="Left" Margin="158,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" Text="Floors" Height="20"/>
+        <TextBox x:Name="Wating_People1" HorizontalAlignment="Left" Margin="534,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF3C3C3C" Foreground="White" BorderBrush="#FF9E9FA2" TextAlignment="Center" BorderThickness="0,0,0,3" Cursor="Arrow" FontFamily="Segoe UI" Height="20" Text="1-9999" SelectionBrush="#FF4CC2FF"/>
+        <TextBlock x:Name="Wating_People" HorizontalAlignment="Left" Margin="405,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" Text="Wating People" Height="20"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0,170,0,0" Text="Elevator" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Number1" HorizontalAlignment="Left" Margin="234,225,0,0" Text="1-10" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF3C3C3C" Foreground="White" BorderBrush="#FF9E9FA2" TextAlignment="Center" BorderThickness="0,0,0,3" Cursor="Arrow" FontFamily="Segoe UI" Height="20" SelectionBrush="#FF4CC2FF"/>
+        <TextBlock x:Name="Number" HorizontalAlignment="Left" Margin="150,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" Text="Number" Height="20"/>
+        <TextBox x:Name="Capacity1" HorizontalAlignment="Left" Margin="534,225,0,0" Text="200-999" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF3C3C3C" Foreground="White" BorderBrush="#FF9E9FA2" TextAlignment="Center" BorderThickness="0,0,0,3" Cursor="Arrow" FontFamily="Segoe UI" Height="20" SelectionBrush="#FF4CC2FF"/>
+        <TextBlock x:Name="Capacity" HorizontalAlignment="Left" Margin="403,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" Text="Wight Capacity" Height="20"/>
+        <TextBox x:Name="Speed1" HorizontalAlignment="Left" Margin="234,274,0,0" Text="1.0-3.0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF3C3C3C" Foreground="White" BorderBrush="#FF9E9FA2" TextAlignment="Center" BorderThickness="0,0,0,3" Cursor="Arrow" FontFamily="Segoe UI" Height="20" SelectionBrush="#FF4CC2FF"/>
+        <TextBlock x:Name="Speed" HorizontalAlignment="Left" Margin="156,271,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="White" FontFamily="Segoe UI" FontSize="16" FontWeight="Normal" Text="Speed" Height="20"/>
 
+
+    </Grid>
+</Window>

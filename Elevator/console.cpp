@@ -1,3 +1,11 @@
+/********************
+作者：陈晗阳
+邮箱：19281123@bjtu.edu.cn
+创建时间：2021/7/22
+修改时间：2021/7/23
+描述：控制台函数实现
+********************/
+
 #include <stdio.h>
 #include <Windows.h>
 #include <iomanip>
@@ -8,7 +16,7 @@ using namespace std;
 
 bool print(false);
 
-void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, double& elevatorSpeed, int& peopleNum)
+void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, int& peopleNum, double& elevatorSpeed)
 {
 	HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);    //获得标准输出设备句柄
 	SetConsoleTextAttribute(handle_out, BACKGROUND_INTENSITY);
@@ -19,7 +27,7 @@ void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, double& 
 		COORD pos = { 0, 3 };
 		SetConsoleCursorPosition(handle_out, pos);
 	}
-	SetConsoleTextAttribute(handle_out, 159);
+	SetConsoleTextAttribute(handle_out, 31);
 	cout << "\t                                                    " << endl;
 	cout << "\t                       Welcome!                     " << endl;
 	cout << "\t                                                    " << endl;
@@ -29,6 +37,7 @@ void userInterface(int& floorNum, int& elevatorNum, int& elevatorWight, double& 
 	cout << "\t        Speed of Elevators:       m/s               " << endl;
 	cout << "\t  Number of Waiting People:                         " << endl;
 	cout << "\t                                                    " << endl;
+	SetConsoleTextAttribute(handle_out, 31);
 	{
 		COORD pos = { 36, 6 };
 		SetConsoleCursorPosition(handle_out, pos);
@@ -69,6 +78,7 @@ void fullScreen()
 	SetWindowLong(hwnd, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE) & ~WS_CAPTION & ~WS_THICKFRAME & ~WS_BORDER);
 
 	SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, 0);
+	system("cls");
 }
 
 void refresh(Elevator* elevator, int elevatorNum, int floorNum)

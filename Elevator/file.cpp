@@ -1,3 +1,11 @@
+/********************
+作者：陈晗阳
+邮箱：19281123@bjtu.edu.cn
+创建时间：2021/7/22
+修改时间：2021/7/22
+描述：日志相关函数实现
+********************/
+
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -45,4 +53,19 @@ void writeOffInfo(Human human, int elevatorId)
 	char YMDTime[TIME_LENGTH];
 	strftime(YMDTime, TIME_LENGTH, "%Y/%m/%d %X", localtime(&t));
 	outFile << YMDTime << " " << "user" << human.getId() << " boarding | F" << human.getOrigin() << "->F" << human.getDestination() << endl;
+}
+
+bool getTemporaryData(int& floorNum, int& elevatorNum, int& elevatorWight, int& peopleNum, double& elevatorSpeed)
+{
+	char fileName[NAME_LENGTH];
+	sprintf_s(fileName, ".\\Elevator_Data");
+	ifstream inFile;
+	inFile.open(fileName);
+	if (!inFile.is_open()) return false;
+	inFile >> floorNum;
+	inFile >> elevatorNum;
+	inFile >> elevatorWight;
+	inFile >> peopleNum;
+	inFile >> elevatorSpeed;
+	return true;
 }

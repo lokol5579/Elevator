@@ -30,7 +30,6 @@ private:
 	int destination;	//目标楼层
 	State state;	//电梯运动状态
 	int peopleWight;	//电梯中的实时载重
-	//int peopleNum;	//电梯中的实时人数
 	vector<Human> people;
 
 public:

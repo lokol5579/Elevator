@@ -84,19 +84,13 @@ void elevatorRun(People& people, Elevator *elevator, int elevatorId, int elevato
 	}
 }
 
-int main(int argc, char* argv[])
+int main()
 {
 	fullScreen();
 	/*获得程序参数*/
 	int floorNum(10), elevatorNum(3), elevatorWight(1000), peopleNum(1000);
 	double elevatorSpeed(1.0);
-	if (!getTemporaryData(floorNum, elevatorNum, elevatorWight, peopleNum, elevatorSpeed))
-	{
-		cout << "Temporary file lost..." << endl;
-		system("pause");
-		exit(-1);
-	}
-	//userInterface(floorNum, elevatorNum, elevatorWight, peopleNum, elevatorSpeed);
+	userInterface(floorNum, elevatorNum, elevatorWight, elevatorSpeed, peopleNum);
 
 	/*初始化建筑、电梯及乘客*/
 	Building building(floorNum, elevatorWight, elevatorSpeed);
@@ -130,7 +124,5 @@ int main(int argc, char* argv[])
 	}
 
 	delete[]human;
-	system("pause");
-	system("exit");
 	return 0;
 }
